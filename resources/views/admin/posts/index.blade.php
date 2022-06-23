@@ -21,6 +21,7 @@
                 <th>Title</th>
                 <th>Content</th>
                 <th>Img</th>
+                <th>Category</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -31,6 +32,7 @@
                 <td>{{$post->title}}</td>
                 <td>{{$post->content}}</td>
                 <td><img width="150" src="{{$post->img}}" alt="{{$post->title}}"></td>
+                <td>{{$post->category ?  $post->category-> name : 'nessuna categoria'}}</td>
                 <td>
                     <a class="btn-crud btn btn-primary text-light" href="{{route('admin.posts.show', $post->slug)}}">View</a>  
                     <a class="btn-crud btn btn-secondary text-light my-2" href="{{route('admin.posts.edit', $post->slug)}}">Edit</a>

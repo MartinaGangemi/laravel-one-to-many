@@ -38,6 +38,17 @@
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
     </div>
+    <div class="mb-3">
+      <label for="category_id" class="form-label ">Category</label>
+      <select class=" @error('category_id') is-invalid @enderror form-control " name="category_id" id="category_id">
+        
+        <option value = "">Seleziona una categoria</option>
+        @foreach($categories as $category)
+        <option value="{{ $category->id}}">{{$category->name}}</option>
+        @endforeach
+        
+      </select>
+    </div>
     
     
     <button type="submit" class="btn btn-danger mt-2 text-light">Add Post</button>

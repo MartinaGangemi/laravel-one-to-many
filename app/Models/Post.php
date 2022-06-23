@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'slug','content', 'img'];
+    protected $fillable = ['title', 'slug','content', 'img', 'category_id'];
 
     public static function generateSlug($title)
     {
