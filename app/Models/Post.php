@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -13,4 +14,10 @@ class Post extends Model
     {
         return Str::slug($title, '-');
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
+
