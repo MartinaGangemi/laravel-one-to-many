@@ -1,10 +1,11 @@
 <?php
 namespace App\Http\Controllers\Admin;
-namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 class CategoryController extends Controller
 {
     /**
@@ -13,8 +14,9 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {   
+        $cats = Category::all();
+        return view('admin.categories.index', compact('cats'));
     }
 
     /**
