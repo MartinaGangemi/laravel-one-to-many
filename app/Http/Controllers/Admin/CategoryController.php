@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
+
 class CategoryController extends Controller
 {
     /**
@@ -26,7 +27,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $cats = Category::all();
+        return view('admin.categories.create', compact('cats'));
     }
 
     /**
@@ -35,9 +37,15 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(CategoryRequest $request)
+    {   
+        //dd($request->all());
+        
+        $validated_data = $request->validated();
+        $slug = Category::generateSlug($request->name);
+        $validated_data['slug'] = $slug;
+        Category::create($validated_data);
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -58,8 +66,9 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
-    {
-        //
+    {   
+        $cats = Category::all();
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -69,9 +78,13 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
-    {
-        //
+    public function update(CategoryRequest $request, Category $category)
+    {   
+         $validated_data = $request->validated();
+         $slug = Category::generateSlug($request->name);
+         $validated_data['slug'] = $slug;
+         $category->update($validated_data);
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -82,6 +95,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('admin.categories.index');
     }
 }
